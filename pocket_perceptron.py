@@ -1,0 +1,110 @@
+import numpy as np
+np.set_printoptions(suppress=True)
+
+
+def load_data(num_rows=-1):
+    if num_rows >= 0:
+        return np.genfromtxt('Breast_cancer_data.csv', delimiter=',', skip_header=1, max_rows=num_rows)
+    else:
+        return np.genfromtxt('Breast_cancer_data.csv', delimiter=',', skip_header=1)
+
+
+def classify(modified_data, weights):
+    return 1 if np.dot(modified_data, weights) > 0 else 0
+
+
+def pre_processing(data):
+    processed_data = []
+
+    for row in data:
+        processed_row = np.append([1], row)
+        processed_data.append(processed_row)
+
+    return np.array(processed_data)
+
+
+def perceptron(data, loss_bound=0.0, max_iter=-1, bias=0, growth_rate=1.0):
+    weights = np.array([0.0] * len(data[0]))
+    iter_count = 0
+    pocket_weight = weights;
+    data = pre_processing(data)
+
+    while iter_count != max_iter:
+        num_errors = 0
+
+        for row in data:
+            target = row[-1]
+            feature_row = row[:-1]
+            prediction = classify(feature_row, weights)
+
+            # Check for error
+            if target != prediction:
+                # Convert from {0,0} to {-1,1}
+                target = -1 if target == 0 else 1
+                xy = target * feature_row
+                xy *= growth_rate
+                new_weight = np.add(weights, xy)
+                weights = new_weight
+                num_errors += 1
+
+        iter_count += 1
+
+        # Check if there has been no updates to weight vector
+        if num_errors == 0:
+            percent_error = find_loss(weights, data)
+            print("Percent Loss:", percent_error)
+            return weights
+
+        # This portion executes only if loss_bound is set
+        if loss_bound != 0.0:
+            percent_error = find_loss(weights, data)
+            #print("Iteration:", iter_count, "   Error:", percent_error)
+            # Terminates the learning process if loss is <= specified error bound
+            if percent_error <= loss_bound:
+                print("Percent Loss:", percent_error)
+                return weights
+
+
+    print("Percent Loss:", percent_error)
+    return weights
+
+
+def find_loss(weights, data):
+    num_errors = 0
+
+    for row in data:
+        target = row[-1]
+        feature_row = row[:-1]
+        prediction = classify(feature_row, weights)
+
+        if target != prediction:
+            num_errors += 1
+
+    return num_errors/len(data)
+
+
+def test(weights, data, print_error=False):
+    num_errors = 0
+    data = pre_processing(data)
+
+    for row in data:
+        target = row[-1]
+        feature_row = row[:-1]
+        prediction = classify(feature_row, weights)
+
+        if target != prediction:
+            if print_error:
+                print("Data is:", row)
+                print("Predicted:", prediction)
+                print("Actual:", target)
+            num_errors += 1
+
+    print("Total Errors:", num_errors)
+    return num_errors/len(data)
+
+
+df = load_data(10)
+print(len(df), 'rows')
+perceptron_model = perceptron(df, loss_bound=0.2)
+print(perceptron_model)
+#test(perceptron_model, df)

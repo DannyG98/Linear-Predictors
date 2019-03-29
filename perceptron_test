@@ -1,0 +1,173 @@
+/Users/Dan/PycharmProjects/CSE353_HW1/venv/bin/python /Users/Dan/PycharmProjects/CSE353_HW1/perceptron.py
+569 rows
+Percent Loss: 0.09666080843585237
+[ 54097.         660595.4339972  -39120.12999979 -67091.88000058
+  -3944.40000015 -46005.28514946]
+Data is: [  1.      11.42    20.38    77.58   386.1      0.1425   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.      12.45    15.7     82.57   477.1      0.1278   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.      11.84    18.7     77.93   440.6      0.1109   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.      13.48    20.82    88.4    559.2      0.1016   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.       13.44     21.58     86.18    563.        0.08162   0.     ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.      10.95    21.35    71.9    371.1      0.1227   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.      13.28    20.28    87.32   545.2      0.1041   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.       13.17     21.81     85.42    531.5       0.09714   0.     ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.      13.17    18.66    85.98   534.6      0.1158   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.      13.8     15.79    90.43   584.1      0.1007   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.       14.62     24.02     94.57    662.7       0.08974   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.      13.11    15.56    87.21   530.2      0.1398   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.       14.26     19.65     97.83    629.9       0.07837   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       12.77     22.47     81.72    506.3       0.09055   0.     ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.      14.95    17.57    96.85   678.1      0.1167   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.      11.8     16.58    78.99   432.       0.1091   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.       14.95     18.77     97.84    689.5       0.08138   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       16.84     19.46    108.4     880.2       0.07445   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       13.43     19.63     85.84    565.4       0.09048   0.     ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.      15.46    11.89   102.5    736.9      0.1257   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.      13.11    22.54    87.02   529.4      0.1002   1.    ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.      13.86    16.93    90.96   578.9      0.1026   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.      11.22    33.81    70.79   386.8      0.0778   1.    ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       14.22     27.85     92.55    623.9       0.08223   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       13.75     23.77     88.54    590.        0.08043   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.      13.96    17.05    91.43   602.4      0.1096   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.       14.41     19.73     96.03    651.        0.08757   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       14.96     19.1      97.03    687.3       0.08992   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       11.76     18.14     75.      431.1       0.09968   0.     ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.       16.5      18.29    106.6     838.1       0.09686   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.      16.17    16.07   106.3    788.5      0.0988   1.    ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       13.46     28.21     85.89    562.1       0.07517   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.      11.08    18.83    73.3    361.6      0.1216   0.    ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.       16.14     14.86    104.3     800.        0.09495   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       14.99     22.11     97.53    693.7       0.08515   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.     13.98   19.62   91.12  599.5     0.106   0.   ]
+Predicted: 1
+Actual: 0.0
+Data is: [  1.       14.53     19.34     94.25    659.7       0.08388   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       12.       28.23     76.77    442.5       0.08437   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       13.38     30.72     86.34    557.2       0.09245   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       11.63     29.29     74.87    415.1       0.09357   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       14.4      26.99     92.25    646.1       0.06995   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       12.04     28.14     76.85    449.9       0.08752   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       12.27     29.97     77.42    465.4       0.07699   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       14.2      20.53     92.41    618.4       0.08931   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       17.85     13.23    114.6     992.1       0.07838   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       14.87     20.21     96.12    680.9       0.09587   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       15.04     16.74     98.73    689.4       0.09883   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       16.3      15.7     104.7     819.8       0.09427   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       14.47     24.99     95.81    656.4       0.08837   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       14.74     25.42     94.7     668.6       0.08275   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       13.21     28.06     84.88    538.4       0.08671   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       12.77     29.43     81.35    507.9       0.08276   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       12.88     28.92     82.5     514.3       0.08123   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       14.59     22.68     96.39    657.1       0.08473   1.     ]
+Predicted: 0
+Actual: 1.0
+Data is: [  1.       14.05     27.15     91.38    600.4       0.09929   1.     ]
+Predicted: 0
+Actual: 1.0
+Total Errors: 55
+
+Process finished with exit code 0
