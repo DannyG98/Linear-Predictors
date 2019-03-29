@@ -29,15 +29,11 @@ def perceptron(data, max_iter=-1, bias=0, growth_rate=1.0):
 
     # The "Pocket" Aspect
     pocket_weight = weights
-    pocket_weight_streak = 0;
-
-    current_streak = 0;
+    pocket_loss = len(data)
 
     data = pre_processing(data)
 
-    while iter_count != max_iter:
-        num_errors = 0
-
+    while iter_count != max_iter and pocket_loss != 0:
         for row in data:
             target = row[-1]
             feature_row = row[:-1]
@@ -45,15 +41,6 @@ def perceptron(data, max_iter=-1, bias=0, growth_rate=1.0):
 
             # Check for error
             if target != prediction:
-
-                # The "Pocket" aspect
-                if current_streak > pocket_weight_streak:
-                    pocket_weight = weights
-                    pocket_weight_streak = current_streak
-
-                    print("Weight:", pocket_weight, "  Streak:", pocket_weight_streak,
-                          "    Loss: ", find_loss(pocket_weight, data))
-
                 # Convert from {0,0} to {-1,1}
                 target = -1 if target == 0 else 1
                 xy = target * feature_row
@@ -61,11 +48,12 @@ def perceptron(data, max_iter=-1, bias=0, growth_rate=1.0):
                 new_weight = np.add(weights, xy)
                 weights = new_weight
 
-                # Set streak to zero for new weight
-                current_streak = 0
-                num_errors += 1
-            else:
-                current_streak += 1
+                # The "Pocket" aspect
+                current_loss = find_errors(weights, data)
+
+                if pocket_loss > current_loss:
+                    pocket_weight = weights
+                    pocket_loss = current_loss
 
         iter_count += 1
 
@@ -86,11 +74,10 @@ def perceptron(data, max_iter=-1, bias=0, growth_rate=1.0):
         #     if percent_error <= loss_bound:
         #         return pocket_weight
 
-    print(find_loss(weights, data))
     return pocket_weight
 
 
-def find_loss(weights, data):
+def find_errors(weights, data):
     num_errors = 0
 
     for row in data:
@@ -101,7 +88,7 @@ def find_loss(weights, data):
         if target != prediction:
             num_errors += 1
 
-    return num_errors/len(data)
+    return num_errors
 
 
 def test(weights, data, print_error=False):
