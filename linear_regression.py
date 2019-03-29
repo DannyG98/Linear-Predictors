@@ -14,9 +14,9 @@ def pre_processing(data):
 
     for row in data:
         if row[-1] == 0:
-            benign.append(row)
+            benign.append(row[:-1])
         else:
-            malignant.append(row)
+            malignant.append(row[:-1])
 
     malignant = np.array(malignant)
     benign = np.array(benign)
@@ -98,7 +98,7 @@ def find_error(data, zero_plane, one_plane):
     one_plane = one_plane[1:]
 
     for row in data:
-        modified_row = row
+        modified_row = row[:-1]
         target = row[-1]
 
         zero_dist = calculate_distance(zero_plane, modified_row[:-1], bias=zero_plane_bias)
@@ -112,22 +112,25 @@ def find_error(data, zero_plane, one_plane):
     return num_errors / len(data)
 
 
-df = load_data()
-zero_df, one_df = pre_processing(df)
+if __name__ == '__main__':
+    df = load_data()
+    zero_df, one_df = pre_processing(df)
 
-zero_bias = np.ones(shape=(len(zero_df), 1))
-one_bias = np.ones(shape=(len(one_df), 1))
+    zero_bias = np.ones(shape=(len(zero_df), 1))
+    one_bias = np.ones(shape=(len(one_df), 1))
 
-zero_df = np.append(zero_bias, zero_df, axis=1)
-one_df = np.append(one_bias, one_df, axis=1)
+    zero_df = np.append(zero_bias, zero_df, axis=1)
+    one_df = np.append(one_bias, one_df, axis=1)
 
-zero_line = linear_regression(zero_df)
-one_line = linear_regression(one_df)
+    zero_line = linear_regression(zero_df)
+    one_line = linear_regression(one_df)
 
-print("Weight Vector for Benign")
-print(zero_line)
+    print("Weight Vector is formatted as follows: [bias, mean_radius, mean_texture, mean_perimeter, mean_area]")
+    print("Weight Vectors predict on the mean_smoothness feature")
+    print("Weight Vector for Benign")
+    print(zero_line)
 
-print("Weight Vector for Malignant")
-print(one_line)
+    print("Weight Vector for Malignant")
+    print(one_line)
 
-print("Loss is:", find_error(df, zero_line, one_line))
+    print("Loss is:", find_error(df, zero_line, one_line))

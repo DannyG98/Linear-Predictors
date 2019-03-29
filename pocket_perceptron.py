@@ -23,10 +23,16 @@ def pre_processing(data):
     return np.array(processed_data)
 
 
-def perceptron(data, loss_bound=0.0, max_iter=-1, bias=0, growth_rate=1.0):
+def perceptron(data, max_iter=-1, bias=0, growth_rate=1.0):
     weights = np.array([0.0] * len(data[0]))
     iter_count = 0
-    pocket_weight = weights;
+
+    # The "Pocket" Aspect
+    pocket_weight = weights
+    pocket_weight_streak = 0;
+
+    current_streak = 0;
+
     data = pre_processing(data)
 
     while iter_count != max_iter:
@@ -39,34 +45,49 @@ def perceptron(data, loss_bound=0.0, max_iter=-1, bias=0, growth_rate=1.0):
 
             # Check for error
             if target != prediction:
+
+                # The "Pocket" aspect
+                if current_streak > pocket_weight_streak:
+                    pocket_weight = weights
+                    pocket_weight_streak = current_streak
+
+                    print("Weight:", pocket_weight, "  Streak:", pocket_weight_streak,
+                          "    Loss: ", find_loss(pocket_weight, data))
+
                 # Convert from {0,0} to {-1,1}
                 target = -1 if target == 0 else 1
                 xy = target * feature_row
                 xy *= growth_rate
                 new_weight = np.add(weights, xy)
                 weights = new_weight
+
+                # Set streak to zero for new weight
+                current_streak = 0
                 num_errors += 1
+            else:
+                current_streak += 1
 
         iter_count += 1
 
-        # Check if there has been no updates to weight vector
-        if num_errors == 0:
-            percent_error = find_loss(weights, data)
-            print("Percent Loss:", percent_error)
-            return weights
+        # THIS PORTION OF CODE BELONGED TO ORIGINAL PERCEPTRON ALGORITHM
+        # # Check if there has been no updates to weight vector
+        # if num_errors == 0:
+        #     percent_error = find_loss(weights, data)
+        #     return pocket_weight
+        #
+        # # This portion executes only if loss_bound is set
+        # if loss_bound != 0.0:
+        #     percent_error = find_loss(weights, data)
+        #
+        #     # THIS LINE IS FOR DEBUGGING/PERFORMANCE ANALYSIS PURPOSES ONLY
+        #     # print("Iteration:", iter_count, "   Error:", percent_error)
+        #
+        #     # Terminates the learning process if loss is <= specified error bound
+        #     if percent_error <= loss_bound:
+        #         return pocket_weight
 
-        # This portion executes only if loss_bound is set
-        if loss_bound != 0.0:
-            percent_error = find_loss(weights, data)
-            #print("Iteration:", iter_count, "   Error:", percent_error)
-            # Terminates the learning process if loss is <= specified error bound
-            if percent_error <= loss_bound:
-                print("Percent Loss:", percent_error)
-                return weights
-
-
-    print("Percent Loss:", percent_error)
-    return weights
+    print(find_loss(weights, data))
+    return pocket_weight
 
 
 def find_loss(weights, data):
@@ -103,8 +124,9 @@ def test(weights, data, print_error=False):
     return num_errors/len(data)
 
 
-df = load_data(10)
-print(len(df), 'rows')
-perceptron_model = perceptron(df, loss_bound=0.2)
-print(perceptron_model)
-#test(perceptron_model, df)
+if __name__ == '__main__':
+    df = load_data()
+    print(len(df), 'rows')
+    perceptron_model = perceptron(df, max_iter=100)
+    print(perceptron_model)
+    print('Percent Loss:', test(perceptron_model, df))

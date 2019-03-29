@@ -50,8 +50,6 @@ def perceptron(data, loss_bound=0.0, max_iter=-1, bias=0, growth_rate=1.0):
 
         # Check if there has been no updates to weight vector
         if num_errors == 0:
-            percent_error = find_loss(weights, data)
-            print("Percent Loss:", percent_error)
             return weights
 
         # This portion executes only if loss_bound is set
@@ -60,11 +58,8 @@ def perceptron(data, loss_bound=0.0, max_iter=-1, bias=0, growth_rate=1.0):
             #print("Iteration:", iter_count, "   Error:", percent_error)
             # Terminates the learning process if loss is <= specified error bound
             if percent_error <= loss_bound:
-                print("Percent Loss:", percent_error)
                 return weights
 
-
-    print("Percent Loss:", percent_error)
     return weights
 
 
@@ -102,8 +97,9 @@ def test(weights, data, print_error=False):
     return num_errors/len(data)
 
 
-df = load_data(10)
-print(len(df), 'rows')
-perceptron_model = perceptron(df, loss_bound=0.2)
-print(perceptron_model)
-#test(perceptron_model, df)
+if __name__ == '__main__':
+    df = load_data()
+    print(len(df), 'rows')
+    perceptron_model = perceptron(df, max_iter=100)
+    print(perceptron_model)
+    print('Percent Loss:', test(perceptron_model, df))
