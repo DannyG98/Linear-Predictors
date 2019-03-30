@@ -36,7 +36,7 @@ def create_bmatrix(data):
 
     for row in data:
         x_matrix.append(row[:-1])
-        y_matrix.append([row[-1]] if row[-1] != 0 else [-1])
+        y_matrix.append([row[-1]])  # if row[-1] != 0 else [-1])
 
     x_matrix = np.matrix(x_matrix).transpose()
     y_matrix = np.matrix(y_matrix)
@@ -89,11 +89,17 @@ def calculate_distance(hyperplane, point, bias=0):
 def find_error(data, zero_plane, one_plane):
     num_errors = 0
 
-    zero_plane = np.asarray(zero_plane.transpose())[0]
+    # zero_plane = np.asarray(zero_plane.transpose())[0]
+    # zero_plane_bias = zero_plane[0]
+    # zero_plane = zero_plane[1:]
+
     zero_plane_bias = zero_plane[0]
     zero_plane = zero_plane[1:]
 
-    one_plane = np.asarray(one_plane.transpose())[0]
+    # one_plane = np.asarray(one_plane.transpose())[0]
+    # one_plane_bias = one_plane[0]
+    # one_plane = one_plane[1:]
+
     one_plane_bias = one_plane[0]
     one_plane = one_plane[1:]
 
@@ -101,8 +107,8 @@ def find_error(data, zero_plane, one_plane):
         modified_row = row[:-1]
         target = row[-1]
 
-        zero_dist = calculate_distance(zero_plane, modified_row[:-1], bias=zero_plane_bias)
-        one_dist = calculate_distance(one_plane, modified_row[:-1], bias=one_plane_bias)
+        zero_dist = calculate_distance(zero_plane, modified_row, bias=zero_plane_bias)
+        one_dist = calculate_distance(one_plane, modified_row, bias=one_plane_bias)
 
         prediction = 0.0 if zero_dist < one_dist else 1.0
 
@@ -127,10 +133,23 @@ if __name__ == '__main__':
 
     print("Weight Vector is formatted as follows: [bias, mean_radius, mean_texture, mean_perimeter, mean_area]")
     print("Weight Vectors predict on the mean_smoothness feature")
+    print("The vector is now in form of w'x+b=y")
+    print("Adding 5th feature as -1 to transform into w'x+b-y=0")
+
+    zero_line = np.array(zero_line)
+    one_line = np.array(one_line)
+
+    zero_line = np.append(zero_line, -1)
+    one_line = np.append(one_line, -1)
+
     print("Weight Vector for Benign")
     print(zero_line)
 
     print("Weight Vector for Malignant")
     print(one_line)
 
+    loss = find_error(df, zero_line, one_line)
+    accuracy = 1 - loss
+
     print("Loss is:", find_error(df, zero_line, one_line))
+    print("Accuracy is:", accuracy)
