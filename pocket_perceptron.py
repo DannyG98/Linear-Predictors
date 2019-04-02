@@ -48,12 +48,12 @@ def perceptron(data, max_iter=-1, bias=0, growth_rate=1.0):
                 new_weight = np.add(weights, xy)
                 weights = new_weight
 
-                # The "Pocket" aspect
-                current_loss = find_errors(weights, data)
+        # The "Pocket" aspect
+        current_loss = find_errors(weights, data)
 
-                if pocket_loss > current_loss:
-                    pocket_weight = weights
-                    pocket_loss = current_loss
+        if pocket_loss > current_loss:
+            pocket_weight = weights
+            pocket_loss = current_loss
 
         iter_count += 1
 
@@ -77,6 +77,9 @@ def perceptron(data, max_iter=-1, bias=0, growth_rate=1.0):
     return pocket_weight
 
 
+# Essentially checks for how many errors the perceptron makes on a data set
+# Made to be used within the perceptron function (essentially a private w.o dunder)
+# To be used in perceptron as data MUST have undergone pre_processing method already
 def find_errors(weights, data):
     num_errors = 0
 
@@ -91,6 +94,9 @@ def find_errors(weights, data):
     return num_errors
 
 
+# Same concept as find_errors but includes debugging purposes and is meant to be used outside of the perceptron function
+# Also returns a percentage for loss instead of number of points failed on
+# Data does has not gone through pre_processing method
 def test(weights, data, print_error=False):
     num_errors = 0
     data = pre_processing(data)

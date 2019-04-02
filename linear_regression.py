@@ -1,6 +1,7 @@
 import numpy as np
 np.set_printoptions(suppress=True)
 
+# Self explanatory, loads the data from the csv
 def load_data(num_rows=-1):
     if num_rows >= 0:
         return np.genfromtxt('Breast_cancer_data.csv', delimiter=',', skip_header=1, max_rows=num_rows)
@@ -8,6 +9,7 @@ def load_data(num_rows=-1):
         return np.genfromtxt('Breast_cancer_data.csv', delimiter=',', skip_header=1)
 
 
+# Pre-processes data by splitting data set into true/false sets and after splitting drops the classification column
 def pre_processing(data):
     malignant = []
     benign = []
@@ -23,6 +25,7 @@ def pre_processing(data):
     return benign, malignant
 
 
+# Decomposes a given matrix into A = XDX^T form and returns a tuple in the ordering of RHS
 def eigen_decomp(matrix):
     eigenvalues, eigenvector = np.linalg.eig(matrix)
     eigenvector_T = eigenvector.transpose()
@@ -30,6 +33,7 @@ def eigen_decomp(matrix):
     return eigenvector, eigenvalues, eigenvector_T
 
 
+# Creates the "target matrix" by multiplying the feature we predict on by the other features
 def create_bmatrix(data):
     x_matrix = []
     y_matrix = []
@@ -44,6 +48,7 @@ def create_bmatrix(data):
     return x_matrix * y_matrix
 
 
+# Creates the A matrix by multiplying the feature matrix by its transpose
 def create_amatrix(data):
     a_matrix = []
 
@@ -56,9 +61,10 @@ def create_amatrix(data):
     return a_matrix_T * a_matrix
 
 
-def create_Dplus(eigenvector):
+# D+ = matrix containing the reciprocal of all non-zero values in diagonal eigenvalue matrix
+def create_Dplus(eigenvalue):
     Dplus_matrix = []
-    for x in eigenvector:
+    for x in eigenvalue:
         Dplus_value = 1 / x if x != 0 else 0
         Dplus_matrix.append(Dplus_value)
 
@@ -67,6 +73,7 @@ def create_Dplus(eigenvector):
     return Dplus_matrix
 
 
+# Main Linear Regression method, returns the weight vector
 def linear_regression(data):
     A_matrix = create_amatrix(data)
     B_matrix = create_bmatrix(data)
@@ -79,6 +86,7 @@ def linear_regression(data):
     return A_plus * B_matrix
 
 
+# Calculates the distance from a hyperplane and a point (hyperplane's bias is a separate argument for debugging purposes
 def calculate_distance(hyperplane, point, bias=0):
     numerator = abs(np.dot(hyperplane, point) + bias)
     denominator = np.linalg.norm(hyperplane)
@@ -86,6 +94,7 @@ def calculate_distance(hyperplane, point, bias=0):
     return numerator/denominator
 
 
+# Takes a data set and the two linear regression planes and classifies each datapoint
 def find_error(data, zero_plane, one_plane):
     num_errors = 0
 
